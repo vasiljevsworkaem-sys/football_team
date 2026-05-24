@@ -140,11 +140,11 @@ public class futbols extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 speletajs p = (speletajs) playerCombo.getSelectedItem();
                 String position = (String) posCombo.getSelectedItem();
-
+                
                 if (p != null && position != null) {
                     String info = "Vards: " + p.name + "  |  Vecums: " + p.age + "  |  Augums: " + p.height + " cm  |  Reitings: " + p.rating + "\n";
                     String action = "Darbiba: ";
-
+                    
                     if (position.equals("Uzbrucejs")) {
                         if (p instanceof uzbrucejs) {
                             uzbrucejs u = (uzbrucejs) p;
@@ -178,7 +178,7 @@ public class futbols extends JFrame {
                             action += p.name + " neprot stret vārtos un ielaiž vieglus vārtus.";
                         }
                     }
-
+                    
                     infoArea.setText(info + action);
                 }
             }
@@ -257,10 +257,22 @@ public class futbols extends JFrame {
     private void saveToFile() {
         try (FileWriter fw = new FileWriter("liverpool_sastavs.txt");
              BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write("LIVERPOOL FC PAŠREIZĒJAIS SASTĀVS");
+            bw.newLine();
+            bw.write("---------------------------------");
+            bw.newLine();
+            bw.write("POZĪCIJA | SPĒLĒTĀJA VĀRDS");
+            bw.newLine();
+            bw.write("---------------------------------");
+            bw.newLine();
             for (int i = 0; i < listModel.size(); i++) {
-                bw.write(listModel.get(i));
+                String item = listModel.get(i);
+                String formatted = item.replace(" -> ", " | ");
+                bw.write(formatted);
                 bw.newLine();
             }
+            bw.write("---------------------------------");
+            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -275,11 +287,18 @@ public class futbols extends JFrame {
              BufferedReader br = new BufferedReader(fr)) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) {
+                if (!line.contains("|") || line.contains("POZĪCIJA")) {
                     continue;
                 }
-                listModel.addElement(line);
-                String playerName = line.substring(line.indexOf(" -> ") + 4);
+                String[] parts = line.split("\\|");
+                if (parts.length < 2) {
+                    continue;
+                }
+                String position = parts[0].trim();
+                String playerName = parts[1].trim();
+                
+                listModel.addElement(position + " -> " + playerName);
+                
                 speletajs toRemove = null;
                 for (speletajs p : availablePlayers) {
                     if (p.name.equals(playerName)) {
