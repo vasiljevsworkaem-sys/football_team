@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="bpmstudio-bpm-inspector-state">
+    <option name="statesByFile">
+      <map>
+        <entry key="$PROJECT_DIR$/src/futbols.form">
+          <value>
+            <FileInspectorState>
+              <option name="statesByElementId">
+                <map>
+                  <entry key="Form_19ar72x">
+                    <value>
+                      <ExpandedItems />
+                    </value>
+                  </entry>
+                  <entry key="Form_1j9w7jd">
+                    <value>
+                      <ExpandedItems>
+                        <option name="items">
+                          <option value="General" />
+                        </option>
+                      </ExpandedItems>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </FileInspectorState>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
